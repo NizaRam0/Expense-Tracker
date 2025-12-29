@@ -11,8 +11,8 @@ class StoreExpenseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
-    }
+        return auth()->check();  
+      }
 
     /**
      * Get the validation rules that apply to the request.
@@ -22,7 +22,10 @@ class StoreExpenseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'category_id'  => ['nullable', 'exists:categories,id'],
+            'amount'       => ['required', 'numeric'],
+            'description'  => ['required', 'string'],
+            'expense_date' => ['required', 'date'],
         ];
     }
 }
